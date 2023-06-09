@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using UnityEngine;
 
 namespace IrisFenrir.InputSystem
 {
@@ -7,6 +8,11 @@ namespace IrisFenrir.InputSystem
     {
         public static void Save(Json json, string path)
         {
+            if (!Directory.GetParent(path).Exists)
+            {
+                ErrorLog.Log(ErrorSetting.pathNotExistError);
+                return;
+            }
             string jsonText = JsonMapper.ToJsonString(json);
             byte[] bytes = Encoding.UTF8.GetBytes(jsonText);
             FileStream stream = File.Create(path);
@@ -21,6 +27,11 @@ namespace IrisFenrir.InputSystem
 
         public static Json Load(string path)
         {
+            if (!Directory.Exists(path))
+            {
+                ErrorLog.Log(ErrorSetting.pathNotExistError);
+                return null;
+            }
             FileStream stream = File.Open(path, FileMode.Open);
             byte[] bytes = new byte[stream.Length];
             stream.Read(bytes);

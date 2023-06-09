@@ -74,12 +74,12 @@ namespace IrisFenrir.InputSystem
             try
             {
                 name = json["name"];
-                SetEnable(json["enable"]);
+                SetEnable(json["enable"], false);
                 key.Load(json["key"]);
             }
             catch
             {
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
 

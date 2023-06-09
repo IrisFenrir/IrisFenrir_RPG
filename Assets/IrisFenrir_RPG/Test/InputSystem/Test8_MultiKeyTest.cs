@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Test8_MultiKeyTest : MonoBehaviour
 {
-    public bool defaultInit = true;
+    public bool load;
 
     private MultiKey m_key;
     private string m_path;
@@ -11,9 +11,9 @@ public class Test8_MultiKeyTest : MonoBehaviour
     private void Start()
     {
         m_key = new MultiKey(2);
-        m_path = Application.dataPath + "/MultiKeyTest.fenrir";
+        m_path = Application.dataPath + "/IrisFenrir_RPG/Test/InputSystem/Save/MultiKeyTest.fenrir";
 
-        if(defaultInit)
+        if (!load)
         {
             m_key.SetKeyCode(KeyCode.F, 0);
             m_key.SetKeyCode(KeyCode.G, 1);
@@ -21,7 +21,7 @@ public class Test8_MultiKeyTest : MonoBehaviour
         }
         else
         {
-            m_key.Load(SaveHelper.Load(m_path));
+            SaveHelper.Load(m_key, m_path);
             Debug.Log("Load");
         }
     }
@@ -35,7 +35,7 @@ public class Test8_MultiKeyTest : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.J))
         {
-            SaveHelper.Save(m_key.Save(), m_path);
+            SaveHelper.Save(m_key, m_path);
             Debug.Log("Save");
         }
     }

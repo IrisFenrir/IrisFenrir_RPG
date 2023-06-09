@@ -89,7 +89,7 @@ namespace IrisFenrir.InputSystem
             try
             {
                 name = json["name"];
-                SetEnable(json["enable"]);
+                SetEnable(json["enable"], false);
                 range.x = json["range.x"];
                 range.y = json["range.y"];
                 start = json["start"];
@@ -99,7 +99,7 @@ namespace IrisFenrir.InputSystem
             }
             catch
             {
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
 

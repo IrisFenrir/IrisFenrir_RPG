@@ -113,7 +113,7 @@ namespace IrisFenrir.InputSystem
             try
             {
                 name = json["name"];
-                SetEnable(json["enable"]);
+                SetEnable(json["enable"], false);
                 range.x = json["range.x"];
                 range.y = json["range.y"];
                 posSpeed.x = json["posSpeed.x"];
@@ -126,7 +126,7 @@ namespace IrisFenrir.InputSystem
             }
             catch
             {
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
 
@@ -250,7 +250,7 @@ namespace IrisFenrir.InputSystem
             }
             catch
             {
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
 

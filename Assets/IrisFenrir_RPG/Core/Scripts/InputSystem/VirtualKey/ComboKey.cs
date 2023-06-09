@@ -98,13 +98,20 @@ namespace IrisFenrir.InputSystem
 
         public override void Load(Json json)
         {
-            name = json["name"];
-            SetEnable(json["enable"], false);
-            interval = json["interval"];
-            List<Json> arr = json["keys"].array;
-            for (int i = 0; i < keys.Length; i++)
+            try
             {
-                keys[i].Load(arr[i]);
+                name = json["name"];
+                SetEnable(json["enable"], false);
+                interval = json["interval"];
+                List<Json> arr = json["keys"].array;
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    keys[i].Load(arr[i]);
+                }
+            }
+            catch
+            {
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
     }

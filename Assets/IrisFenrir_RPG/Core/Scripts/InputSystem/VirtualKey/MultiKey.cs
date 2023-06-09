@@ -121,9 +121,7 @@ namespace IrisFenrir.InputSystem
             }
             catch
             {
-#if UNITY_EDITOR
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
-#endif
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
 

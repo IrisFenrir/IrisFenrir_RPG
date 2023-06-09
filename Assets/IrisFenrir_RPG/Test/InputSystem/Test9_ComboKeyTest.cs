@@ -4,7 +4,7 @@ using UnityEngine;
 public class Test9_ComboKeyTest : MonoBehaviour
 {
     public int combo;
-    public bool defaultInit = true;
+    public bool load;
 
     private ComboKey m_key;
     private string m_path;
@@ -12,9 +12,9 @@ public class Test9_ComboKeyTest : MonoBehaviour
     private void Start()
     {
         m_key = new ComboKey(3);
-        m_path = Application.dataPath + "/ComboKeyTest.fenrir";
+        m_path = Application.dataPath + "/IrisFenrir_RPG/Test/InputSystem/Save/ComboKeyTest.fenrir";
 
-        if(defaultInit)
+        if (!load)
         {
             m_key.SetKeyCode(KeyCode.B, 0);
             m_key.SetKeyCode(KeyCode.N, 1);

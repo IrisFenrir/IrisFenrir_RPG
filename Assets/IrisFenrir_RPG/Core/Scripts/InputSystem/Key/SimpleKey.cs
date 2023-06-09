@@ -107,11 +107,18 @@ namespace IrisFenrir.InputSystem
 
         public override void Load(Json json)
         {
-            SetEnable(json["enable"]);
-            List<Json> arr = json["keys"].array;
-            for (int i = 0; i < m_keys.Count; i++)
+            try
             {
-                m_keys[i].Load(arr[i]);
+                SetEnable(json["enable"], false);
+                List<Json> arr = json["keys"].array;
+                for (int i = 0; i < m_keys.Count; i++)
+                {
+                    m_keys[i].Load(arr[i]);
+                }
+            }
+            catch
+            {
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
     }

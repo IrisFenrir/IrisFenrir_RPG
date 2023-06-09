@@ -3,22 +3,25 @@ using UnityEngine;
 
 public class Test6_PressKeyTest : MonoBehaviour
 {
-    public bool defaultInit;
+    public float pressingTime;
+    public bool load;
 
     private PressKey m_key;
+    private string m_path;
 
     private void Start()
     {
         m_key = new PressKey();
+        m_path = Application.dataPath + "/IrisFenrir_RPG/Test/InputSystem/Save/PressKeyTest.fenrir";
 
-        if(defaultInit)
+        if (!load)
         {
             m_key.SetKeyCode(KeyCode.Space);
             m_key.SetEnable(true);
         }
         else
         {
-            m_key.Load(SaveHelper.Load(Application.dataPath + "/Test.fenrir"));
+            SaveHelper.Load(m_key, m_path);
             Debug.Log("Load");
         }
     }
@@ -27,6 +30,7 @@ public class Test6_PressKeyTest : MonoBehaviour
     {
         m_key.Update(Time.deltaTime);
 
+        pressingTime = m_key.pressTime;
         if (m_key.isDown)
             Debug.Log("Down");
         if (m_key.isPressing)
@@ -36,7 +40,7 @@ public class Test6_PressKeyTest : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.J))
         {
-            SaveHelper.Save(m_key.Save(), Application.dataPath + "/Test.fenrir");
+            SaveHelper.Save(m_key, m_path);
             Debug.Log("Save");
         }    
     }

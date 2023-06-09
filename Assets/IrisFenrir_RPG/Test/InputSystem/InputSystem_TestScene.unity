@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1967279566}
-  defaultInit: 1
+  load: 0
 --- !u!114 &708152400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
-  defaultInit: 0
+  load: 0
 --- !u!114 &708152401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,7 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5727436ec8957a48b95d39d52c666ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultInit: 0
+  pressingTime: 0
+  load: 0
 --- !u!114 &708152402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,7 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {x: 0, y: 0}
-  defaultInit: 0
+  load: 0
 --- !u!114 &708152403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc988357e9c73314c91efbbd918b1f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultInit: 0
+  load: 0
 --- !u!114 &708152404
 MonoBehaviour:
   m_ObjectHideFlags: 0

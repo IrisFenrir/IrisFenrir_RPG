@@ -98,14 +98,14 @@ namespace IrisFenrir.InputSystem
             try
             {
                 name = json["name"];
-                SetEnable(json["enable"]);
+                SetEnable(json["enable"], false);
                 clickCount = json["clickCount"];
                 clickInterval = json["clickInterval"];
                 key.Load(json["key"]);
             }
             catch
             {
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
 

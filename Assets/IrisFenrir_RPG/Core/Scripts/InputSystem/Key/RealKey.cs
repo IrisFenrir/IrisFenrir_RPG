@@ -43,7 +43,7 @@ namespace IrisFenrir.InputSystem
             }
             catch
             {
-                Debug.Log(ErrorSetting.jsonFormatErrorMessage);
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
             }
         }
     }

@@ -29,7 +29,14 @@ namespace IrisFenrir.InputSystem
 
         public virtual void Load(Json json)
         {
-            SetEnable(json["enable"]);
+            try
+            {
+                SetEnable(json["enable"]);
+            }
+            catch
+            {
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
+            }
         }
     }
 }

@@ -4,13 +4,15 @@ using UnityEngine;
 public class Test4_TapKeyTest : MonoBehaviour
 {
     public Test2_Button button;
-    public bool defaultInit;
+    public bool load;
 
     private TapKey m_key;
+    private string m_path;
 
     private void Start()
     {
         m_key = new TapKey();
+        m_path = Application.dataPath + "/IrisFenrir_RPG/Test/InputSystem/Save/TapKeyTest.fenrir";
 
         DelegatedKey key = new DelegatedKey();
         key.getKeyDown = () => button.down;
@@ -19,7 +21,7 @@ public class Test4_TapKeyTest : MonoBehaviour
 
         m_key.AddKey(key);
 
-        if(defaultInit)
+        if(!load)
         {
             m_key.SetKeyCode(KeyCode.Space);
             m_key.clickCount = 3;
@@ -27,7 +29,7 @@ public class Test4_TapKeyTest : MonoBehaviour
         }
         else
         {
-            m_key.Load(SaveHelper.Load(Application.dataPath + "/Test.fenrir"));
+            SaveHelper.Load(m_key, m_path);
             Debug.Log("Load");
         }
     }
@@ -51,7 +53,7 @@ public class Test4_TapKeyTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            SaveHelper.Save(m_key.Save(), Application.dataPath + "/Test.fenrir");
+            SaveHelper.Save(m_key, m_path);
             Debug.Log("Save");
         }
     }

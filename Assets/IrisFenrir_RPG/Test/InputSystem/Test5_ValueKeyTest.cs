@@ -4,22 +4,24 @@ using UnityEngine;
 public class Test5_ValueKeyTest : MonoBehaviour
 {
     public float value;
-    public bool defaultInit;
+    public bool load;
 
     private ValueKey m_key;
+    private string m_path;
 
     private void Start()
     {
         m_key = new ValueKey();
+        m_path = Application.dataPath + "/IrisFenrir_RPG/Test/InputSystem/Save/ValueKeyTest.fenrir";
 
-        if(defaultInit)
+        if (!load)
         {
             m_key.SetKeyCode(KeyCode.Space);
             m_key.SetEnable(true);
         }
         else
         {
-            m_key.Load(SaveHelper.Load(Application.dataPath + "/Test.fenrir"));
+            SaveHelper.Load(m_key, m_path);
             Debug.Log("Load");
         }
     }
@@ -32,7 +34,7 @@ public class Test5_ValueKeyTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            SaveHelper.Save(m_key.Save(), Application.dataPath + "/Test.fenrir");
+            SaveHelper.Save(m_key, m_path);
             Debug.Log("Save");
         }
     }
