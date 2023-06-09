@@ -87,6 +87,7 @@
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Updater\IUpdater.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test9_ComboKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Log\ErrorLog.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test10_InputSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Arts\Models\Griseo\使用规则.txt" />

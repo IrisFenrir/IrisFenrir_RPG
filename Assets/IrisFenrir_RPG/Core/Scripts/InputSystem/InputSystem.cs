@@ -29,9 +29,11 @@ namespace IrisFenrir.InputSystem
             return instance.m_keys.Find(key => key.name == name) as T;
         }
 
-        public void SetEnable(bool enable, bool includeChildren = false)
+        public void SetEnable(bool enable, bool includeChildren = true)
         {
             this.enable = enable;
+            if (includeChildren)
+                m_keys.ForEach(key => key.SetEnable(enable, includeChildren));
         }
 
         public bool GetEnable()
@@ -56,12 +58,27 @@ namespace IrisFenrir.InputSystem
 
         public Json Save()
         {
-            return null;
+            Json json = new Json(Json.Type.Object);
+            json["enable"] = enable;
+            Json arr = new Json(Json.Type.Array);
+            m_keys.ForEach(key => arr.Add(key.Save()));
+            json["keys"] = arr;
+            return json;
         }
 
         public void Load(Json json)
         {
-
+            try
+            {
+                SetEnable(json["enable"], false);
+                List<Json> arr = json["keys"].array;
+                int index = 0;
+                m_keys.ForEach(key => key.Load(arr[index++]));
+            }
+            catch
+            {
+                ErrorLog.Log(ErrorSetting.jsonAnalysisError);
+            }
         }
     }
 }

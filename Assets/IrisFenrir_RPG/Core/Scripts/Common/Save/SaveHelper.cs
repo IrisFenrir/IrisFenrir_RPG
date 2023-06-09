@@ -27,7 +27,7 @@ namespace IrisFenrir.InputSystem
 
         public static Json Load(string path)
         {
-            if (!Directory.Exists(path))
+            if (!File.Exists(path))
             {
                 ErrorLog.Log(ErrorSetting.pathNotExistError);
                 return null;
