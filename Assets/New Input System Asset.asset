@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a47df91cd7e214dafe8c50c058fc0e, type: 3}
+  m_Name: New Input System Asset
+  m_EditorClassIdentifier: 
+  keys:
+  - type: 1
+    propertyNames:
+    - name
+    - clickCount
+    - clickInterval
+    - keyCode
+    propertyTypes: 01000000020000000300000004000000
+    propertyIndex: 00000000000000000000000000000000
+    m_stringProperties:
+      type: 1
+      m_propertyValues:
+      - TapTest
+    m_intProperties:
+      type: 2
+      m_propertyValues: 02000000
+    m_floatProperties:
+      type: 3
+      m_propertyValues:
+      - 0.5
+    m_keyCodeProperties:
+      type: 4
+      m_propertyValues: 7a000000
+    m_vector2Properties:
+      type: 5
+      m_propertyValues: []
+    subKeys: []
+  - type: 2
+    propertyNames:
+    - name
+    - range
+    - start
+    - speed
+    - keyCode
+    propertyTypes: 0100000005000000030000000500000004000000
+    propertyIndex: 0000000000000000000000000100000000000000
+    m_stringProperties:
+      type: 1
+      m_propertyValues:
+      - ValueTest
+    m_intProperties:
+      type: 2
+      m_propertyValues: 
+    m_floatProperties:
+      type: 3
+      m_propertyValues:
+      - 0
+    m_keyCodeProperties:
+      type: 4
+      m_propertyValues: 78000000
+    m_vector2Properties:
+      type: 5
+      m_propertyValues:
+      - {x: 0, y: 1}
+      - {x: 5, y: 5}
+    subKeys: []
+  - type: 3
+    propertyNames:
+    - name
+    - keyCode
+    propertyTypes: 0100000004000000
+    propertyIndex: 0000000000000000
+    m_stringProperties:
+      type: 1
+      m_propertyValues:
+      - PressTest
+    m_intProperties:
+      type: 2
+      m_propertyValues: 
+    m_floatProperties:
+      type: 3
+      m_propertyValues: []
+    m_keyCodeProperties:
+      type: 4
+      m_propertyValues: 63000000
+    m_vector2Properties:
+      type: 5
+      m_propertyValues: []
+    subKeys: []
+  - type: 4
+    propertyNames:
+    - name
+    propertyTypes: 01000000
+    propertyIndex: 00000000
+    m_stringProperties:
+      type: 1
+      m_propertyValues:
+      - AxisTest
+    m_intProperties:
+      type: 2
+      m_propertyValues: 
+    m_floatProperties:
+      type: 3
+      m_propertyValues: []
+    m_keyCodeProperties:
+      type: 4
+      m_propertyValues: 
+    m_vector2Properties:
+      type: 5
+      m_propertyValues: []
+    subKeys:
+    - type: 7
+      propertyNames:
+      - range
+      - posSpeed
+      - negSpeed
+      - start
+      - posKey
+      - negKey
+      propertyTypes: 050000000500000005000000030000000400000004000000
+      propertyIndex: 000000000100000002000000000000000000000001000000
+      m_stringProperties:
+        type: 1
+        m_propertyValues: []
+      m_intProperties:
+        type: 2
+        m_propertyValues: 
+      m_floatProperties:
+        type: 3
+        m_propertyValues:
+        - 0
+      m_keyCodeProperties:
+        type: 4
+        m_propertyValues: 6400000061000000
+      m_vector2Properties:
+        type: 5
+        m_propertyValues:
+        - {x: -1, y: 1}
+        - {x: 5, y: 5}
+        - {x: 5, y: 5}
+      subKeys: []
+    - type: 7
+      propertyNames:
+      - range
+      - posSpeed
+      - negSpeed
+      - start
+      - posKey
+      - negKey
+      propertyTypes: 050000000500000005000000030000000400000004000000
+      propertyIndex: 000000000100000002000000000000000000000001000000
+      m_stringProperties:
+        type: 1
+        m_propertyValues: []
+      m_intProperties:
+        type: 2
+        m_propertyValues: 
+      m_floatProperties:
+        type: 3
+        m_propertyValues:
+        - 0
+      m_keyCodeProperties:
+        type: 4
+        m_propertyValues: 7300000077000000
+      m_vector2Properties:
+        type: 5
+        m_propertyValues:
+        - {x: -1, y: 1}
+        - {x: 5, y: 5}
+        - {x: 5, y: 5}
+      subKeys: []
+  - type: 5
+    propertyNames:
+    - name
+    - interval
+    - keyCount
+    - key0
+    - key1
+    propertyTypes: 0100000003000000020000000400000004000000
+    propertyIndex: 0000000000000000000000000000000001000000
+    m_stringProperties:
+      type: 1
+      m_propertyValues:
+      - MultiTest
+    m_intProperties:
+      type: 2
+      m_propertyValues: 02000000
+    m_floatProperties:
+      type: 3
+      m_propertyValues:
+      - 0.5
+    m_keyCodeProperties:
+      type: 4
+      m_propertyValues: 7600000062000000
+    m_vector2Properties:
+      type: 5
+      m_propertyValues: []
+    subKeys: []
+  - type: 6
+    propertyNames:
+    - name
+    - interval
+    - keyCount
+    - key0
+    - key1
+    propertyTypes: 0100000003000000020000000400000004000000
+    propertyIndex: 0000000000000000000000000000000001000000
+    m_stringProperties:
+      type: 1
+      m_propertyValues:
+      - ComboTest
+    m_intProperties:
+      type: 2
+      m_propertyValues: 02000000
+    m_floatProperties:
+      type: 3
+      m_propertyValues:
+      - 0.5
+    m_keyCodeProperties:
+      type: 4
+      m_propertyValues: 6e0000006d000000
+    m_vector2Properties:
+      type: 5
+      m_propertyValues: []
+    subKeys: []
