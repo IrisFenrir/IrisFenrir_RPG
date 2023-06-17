@@ -8,6 +8,8 @@ namespace IrisFenrir.InputSystem
 
         public bool enable { get; protected set; }
 
+        public virtual int keyCount { get; } = 1;
+
         public virtual void SetEnable(bool enable, bool includeChildren = true)
         {
             this.enable = enable;

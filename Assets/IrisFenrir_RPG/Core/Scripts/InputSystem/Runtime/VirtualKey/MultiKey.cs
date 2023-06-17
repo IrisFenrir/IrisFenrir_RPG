@@ -11,6 +11,8 @@ namespace IrisFenrir.InputSystem
 
         public bool isTriggered;
 
+        public override int keyCount => keys.Length;
+
         private float m_currentInterval;
         private bool[] m_keyState;
 

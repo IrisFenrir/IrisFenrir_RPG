@@ -136,6 +136,8 @@ namespace IrisFenrir.InputSystem
     {
         public Axis[] axes { get; private set; }
 
+        public override int keyCount => axes.Length * 2;
+
         private Vector2 m_output2d;
         private Vector3 m_output3d;
 

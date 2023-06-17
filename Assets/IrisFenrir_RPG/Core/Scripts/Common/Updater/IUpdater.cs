@@ -2,10 +2,10 @@
 {
     public interface IUpdater
     {
-        void Init() { }
+        void Init();
 
-        void Update(float deltaTime) { }
+        void Update(float deltaTime);
 
-        void Stop() { }
+        void Stop();
     }
 }

@@ -6,34 +6,34 @@ namespace IrisFenrir.InputSystem
     {
         public bool enable { get; private set; }
 
-        private List<IVirutalKey> m_keys;
+        public List<IVirutalKey> keys { get; private set; }
 
         public InputSystem()
         {
-            m_keys = new List<IVirutalKey>();
+            keys = new List<IVirutalKey>();
         }
 
         public static void AddKey(IVirutalKey key)
         {
             if (key == null) return;
-            instance.m_keys.Add(key);
+            instance.keys.Add(key);
         }
 
         public static void RemoveKey(IVirutalKey key)
         {
-            instance.m_keys.Remove(key);
+            instance.keys.Remove(key);
         }
 
         public static T FindKey<T>(string name) where T:IVirutalKey
         {
-            return instance.m_keys.Find(key => key.name == name) as T;
+            return instance.keys.Find(key => key.name == name) as T;
         }
 
         public void SetEnable(bool enable, bool includeChildren = true)
         {
             this.enable = enable;
             if (includeChildren)
-                m_keys.ForEach(key => key.SetEnable(enable, includeChildren));
+                keys.ForEach(key => key.SetEnable(enable, includeChildren));
         }
 
         public bool GetEnable()
@@ -43,17 +43,17 @@ namespace IrisFenrir.InputSystem
 
         public void Init()
         {
-            m_keys.ForEach(key => key.Init());
+            keys.ForEach(key => key.Init());
         }
 
         public void Update(float deltaTime)
         {
-            m_keys.ForEach(key => key.Update(deltaTime));
+            keys.ForEach(key => key.Update(deltaTime));
         }
 
         public void Stop()
         {
-            m_keys.ForEach(key => key.Stop());
+            keys.ForEach(key => key.Stop());
         }
 
         public Json Save()
@@ -61,7 +61,7 @@ namespace IrisFenrir.InputSystem
             Json json = new Json(Json.Type.Object);
             json["enable"] = enable;
             Json arr = new Json(Json.Type.Array);
-            m_keys.ForEach(key => arr.Add(key.Save()));
+            keys.ForEach(key => arr.Add(key.Save()));
             json["keys"] = arr;
             return json;
         }
@@ -73,7 +73,7 @@ namespace IrisFenrir.InputSystem
                 SetEnable(json["enable"], false);
                 List<Json> arr = json["keys"].array;
                 int index = 0;
-                m_keys.ForEach(key => key.Load(arr[index++]));
+                keys.ForEach(key => key.Load(arr[index++]));
             }
             catch
             {

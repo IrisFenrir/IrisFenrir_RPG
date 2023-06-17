@@ -59,44 +59,54 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Singleton\Singleton.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\UI\Raycaster\UIRaycaster.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Log\ErrorLog.cs" />
-    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\JSON\Json.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Time\TimeHelper.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test7_AxisKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test2_Button.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test3_SimpleKeyTest.cs" />
-    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Window\KeyDataUnit.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\IVirutalKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test5_ValueKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\ValueKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Updater\IUpdater.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Json\JsonMapper.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Save\SaveHelper.cs" />
-    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Window\InputSystemBuilder.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test10_InputSystemTest.cs" />
-    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\JSON\JsonMapper.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Key\SimpleKey.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Json\Json.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\UI\Text\UIText.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\UI\Text\ITextAdapter.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\InputHelper.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\ComboKey.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\InputSystemBuilder.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\InputSystem.cs" />
-    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Window\InputSystemAsset.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test12_UIKeyTest.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\UI\UIKeyManager.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\UI\Text\UITextMeshPro.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Key\IKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test11_InputAssetTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test1_RealKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\PressKey.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\KeyDataUnit.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\MultiKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test9_ComboKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Key\DelegatedKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Key\RealKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Setting\ErrorSetting.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Interfaces\ISavable.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\UI\UIKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test8_MultiKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\AxisKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Interfaces\IEnable.cs" />
-    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Window\PropertyReader.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\PropertyReader.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\InputSystemAsset.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test2_DelegatedKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test6_PressKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\TapKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test4_TapKeyTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Arts\Fonts\3500.txt" />
     <None Include="Assets\Arts\Models\Griseo\使用规则.txt" />
   </ItemGroup>
   <ItemGroup>

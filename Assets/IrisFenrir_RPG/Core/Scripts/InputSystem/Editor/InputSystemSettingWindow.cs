@@ -95,7 +95,6 @@ namespace IrisFenrir
                     foreach (var key in m_asset.keys)
                     {
                         m_keyFoldout.Add(key, false);
-                        key.subKeys.ForEach(k => m_keyFoldout.Add(k, false));
                     }
                 }
 
@@ -239,6 +238,7 @@ namespace IrisFenrir
                     break;
                 case KeyDataUnit.KeyType.AxisKey:
                     key.AddStringProperty("name", "Custom Key");
+                    key.AddIntProperty("axisCount", 0);
                     break;
                 case KeyDataUnit.KeyType.MultiKey:
                     key.AddStringProperty("name", "Custom Key");
@@ -330,33 +330,47 @@ namespace IrisFenrir
         private void DrawAxes(KeyDataUnit key)
         {
             m_axesFoldout[key] = EditorGUI.Foldout(new Rect(50, m_currentHeight + 5, 100, 20), m_axesFoldout[key], "Axes");
-            EditorGUI.IntField(new Rect(150, m_currentHeight + 5, 50, 20), key.subKeys.Count);
+            EditorGUI.IntField(new Rect(150, m_currentHeight + 5, 50, 20), key.GetIntProperty("axisCount"));
             if (GUI.Button(new Rect(205, m_currentHeight + 5, 20, 20), "+"))
             {
-                var subKey = new KeyDataUnit();
-                subKey.type = KeyDataUnit.KeyType.Axis;
-                subKey.AddVector2Property("range", new Vector2(-1, 1));
-                subKey.AddVector2Property("posSpeed", new Vector2(5, 5));
-                subKey.AddVector2Property("negSpeed", new Vector2(5, 5));
-                subKey.AddFloatProperty("start", 0);
-                subKey.AddKeyCodeProperty("posKey", KeyCode.None);
-                subKey.AddKeyCodeProperty("negKey", KeyCode.None);
-                m_keyFoldout.Add(subKey, false);
-                key.subKeys.Add(subKey);
+                //var subKey = new KeyDataUnit();
+                //subKey.type = KeyDataUnit.KeyType.Axis;
+                //subKey.AddVector2Property("range", new Vector2(-1, 1));
+                //subKey.AddVector2Property("posSpeed", new Vector2(5, 5));
+                //subKey.AddVector2Property("negSpeed", new Vector2(5, 5));
+                //subKey.AddFloatProperty("start", 0);
+                //subKey.AddKeyCodeProperty("posKey", KeyCode.None);
+                //subKey.AddKeyCodeProperty("negKey", KeyCode.None);
+                //m_keyFoldout.Add(subKey, false);
+                //key.subKeys.Add(subKey);
+                int index = key.GetIntProperty("axisCount");
+                key.AddVector2Property($"range{index}", new Vector2(-1, 1));
+                key.AddVector2Property($"posSpeed{index}", new Vector2(5, 5));
+                key.AddVector2Property($"negSpeed{index}", new Vector2(5, 5));
+                key.AddFloatProperty($"start{index}", 0);
+                key.AddKeyCodeProperty($"posKey{index}", KeyCode.None);
+                key.AddKeyCodeProperty($"negKey{index}", KeyCode.None);
+                key.AddIntProperty($"foldout{index}", 0);
+                key.SetIntProperty("axisCount", index + 1);
             }
             if (GUI.Button(new Rect(230, m_currentHeight + 5, 20, 20), "-"))
             {
-                var subKey = key.subKeys.Last();
-                if (subKey != null)
-                {
-                    key.subKeys.Remove(subKey);
-                }
+                int index = key.GetIntProperty("axisCount") - 1;
+                if (index < 0) return;
+                key.RemoveVector2Property($"range{index}");
+                key.RemoveVector2Property($"posSpeed{index}");
+                key.RemoveVector2Property($"negSpeed{index}");
+                key.RemoveFloatProperty($"start{index}");
+                key.RemoveKeyCodeProperty($"posKey{index}");
+                key.RemoveKeyCodeProperty($"negKey{index}");
+                key.RemoveIntProperty($"foldout{index}");
+                key.SetIntProperty("axisCount", index);
             }
             m_currentHeight += 25;
 
             if (!m_axesFoldout[key]) return;
 
-            for (int i = 0; i < key.subKeys.Count; i++)
+            for (int i = 0; i < key.GetIntProperty("axisCount"); i++)
             {
                 DrawAxis(key, i);
             }
@@ -364,30 +378,18 @@ namespace IrisFenrir
 
         private void DrawAxis(KeyDataUnit key, int index)
         {
-            var subKey = key.subKeys[index];
-            Rect area = new Rect(70, m_currentHeight + 5, 100, 20);
-            m_keyFoldout[subKey] = EditorGUI.Foldout(area, m_keyFoldout[subKey], $"Axis {index}");
+            key.SetIntProperty($"foldout{index}", EditorGUI.Foldout(new Rect(70, m_currentHeight + 5, 100, 20), key.GetIntProperty($"foldout{index}") == 1, $"Axis {index}") ? 1 : 0);
             m_currentHeight += 25;
 
-            if (Event.current.type == EventType.MouseDown && Event.current.button == 1 && area.Contains(Event.current.mousePosition))
-            {
-                GenericMenu menu = new GenericMenu();
-                menu.AddItem(new GUIContent("Delete"), false, () =>
-                {
-                    key.subKeys.Remove(subKey);
-                });
-                menu.ShowAsContext();
-            }
-
-            if (!m_keyFoldout[subKey]) return;
+            if (key.GetIntProperty($"foldout{index}") == 0) return;
 
             float leftMargin = 90f;
-            DrawVector2Filed(subKey, "Range", "range", true, leftMargin);
-            DrawFloatField(subKey, "Start", "start", true, leftMargin);
-            DrawVector2Filed(subKey, "Pos Speed", "posSpeed", false, leftMargin);
-            DrawVector2Filed(subKey, "Neg Speed", "negSpeed", true, leftMargin + 220);
-            DrawKeyCodeFiled(subKey, "Pos Key", "posKey", false, leftMargin);
-            DrawKeyCodeFiled(subKey, "Neg Key", "negKey", true, leftMargin + 220);
+            DrawVector2Filed(key, "Range", $"range{index}", true, leftMargin);
+            DrawFloatField(key, "Start", $"start{index}", true, leftMargin);
+            DrawVector2Filed(key, "Pos Speed", $"posSpeed{index}", false, leftMargin);
+            DrawVector2Filed(key, "Neg Speed", $"negSpeed{index}", true, leftMargin + 220);
+            DrawKeyCodeFiled(key, "Pos Key", $"posKey{index}", false, leftMargin);
+            DrawKeyCodeFiled(key, "Neg Key", $"negKey{index}", true, leftMargin + 220);
         }
 
         private void DrawKeyCodes(KeyDataUnit key)
