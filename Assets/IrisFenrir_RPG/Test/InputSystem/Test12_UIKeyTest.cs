@@ -42,7 +42,7 @@ public class Test12_UIKeyTest : MonoBehaviour
         InputSystem.instance.Update(Time.deltaTime);
         m_uiKeyManager.Update(Time.deltaTime);
 
-
+        
         if (m_tapKey.isTriggered)
             Debug.Log("Tap Key!!!");
 

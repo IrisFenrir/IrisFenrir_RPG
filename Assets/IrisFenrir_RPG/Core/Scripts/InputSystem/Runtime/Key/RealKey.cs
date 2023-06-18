@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UInput = UnityEngine.Input;
 
 namespace IrisFenrir.InputSystem
 {
@@ -11,19 +10,19 @@ namespace IrisFenrir.InputSystem
         public override bool GetKeyPressing()
         {
             if (!enable) return false;
-            return UInput.GetKey(keyCode);
+            return Input.GetKey(keyCode);
         }
 
         public override bool GetKeyDown()
         {
             if (!enable) return false;
-            return UInput.GetKeyDown(keyCode);
+            return Input.GetKeyDown(keyCode);
         }
 
         public override bool GetKeyUp()
         {
             if (!enable) return false;
-            return UInput.GetKeyUp(keyCode);
+            return Input.GetKeyUp(keyCode);
         }
 
         public override Json Save()
