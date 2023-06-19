@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UEventSysten = UnityEngine.EventSystems.EventSystem;
 
 namespace IrisFenrir
 {
@@ -13,7 +14,7 @@ namespace IrisFenrir
         {
             results = null;
             if (raycaster == null) return false;
-            m_pointerData ??= new PointerEventData(EventSystem.current);
+            m_pointerData ??= new PointerEventData(UEventSysten.current);
             m_pointerData.position = screenPos;
             results = new List<RaycastResult>();
             raycaster.Raycast(m_pointerData, results);

@@ -61,8 +61,10 @@
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Singleton\Singleton.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\UI\Raycaster\UIRaycaster.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Log\ErrorLog.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\EventSystem\EventGroup.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Time\TimeHelper.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test7_AxisKeyTest.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\EventSystem\IEvent.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test2_Button.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test3_SimpleKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\IVirutalKey.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Updater\IUpdater.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Json\JsonMapper.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Save\SaveHelper.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\EventSystem\EventSystem.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test10_InputSystemTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Key\SimpleKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Json\Json.cs" />
@@ -80,6 +83,7 @@
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\ComboKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\InputSystemBuilder.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\InputSystem.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\EventSystem\SingleEvent.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test12_UIKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\UI\UIKeyManager.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\UI\Text\UITextMeshPro.cs" />
@@ -98,12 +102,15 @@
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test8_MultiKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\AxisKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Interfaces\IEnable.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Test\EventSystem\Test1_SingleEventTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\PropertyReader.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Test\EventSystem\Test2_EventGroupTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\InputSystemAsset.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test2_DelegatedKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test6_PressKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\TapKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test4_TapKeyTest.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Test\EventSystem\Test3_EventSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Arts\Fonts\3500.txt" />
