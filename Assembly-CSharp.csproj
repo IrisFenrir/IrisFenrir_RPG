@@ -72,7 +72,9 @@
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\ValueKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Updater\IUpdater.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Json\JsonMapper.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\AnimationSystem\Behaviour\AnimUnit.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Save\SaveHelper.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\AnimationSystem\AnimationSystem.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\EventSystem\EventSystem.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test10_InputSystemTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Key\SimpleKey.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\UI\UIKey.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\InputSystem\Test8_MultiKeyTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\VirtualKey\AxisKey.cs" />
+    <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\AnimationSystem\Behaviour\IAnimationBehaviour.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\Common\Interfaces\IEnable.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Test\EventSystem\Test1_SingleEventTest.cs" />
     <Compile Include="Assets\IrisFenrir_RPG\Core\Scripts\InputSystem\Runtime\Asset\PropertyReader.cs" />
