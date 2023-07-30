@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace IrisFenrir.InputSystem
 {
@@ -8,7 +7,7 @@ namespace IrisFenrir.InputSystem
         public Vector2 range = new Vector2(0f, 1f);
         public float start = 0f;
         public Vector2 speed = 5f * Vector2.one;
-        private SimpleKey key;
+        public SimpleKey key;
 
         public float value = 0f;     
 
@@ -32,7 +31,7 @@ namespace IrisFenrir.InputSystem
             if (speed.x <= 0 || speed.y <= 0 || range.x >= range.y ||
                 start >= range.y || start < range.x) return;
 
-            if (enable && key.GetKeyPressing())
+            if (Enable && key.GetKeyPressing())
             {
                 if (value < range.y)
                 {
@@ -50,14 +49,14 @@ namespace IrisFenrir.InputSystem
             }
         }
 
-        public override void SetKeyCode(KeyCode keyCode, int index = 0)
+        public override void SetKeyCode(KeyCode keyCode, int index = 0, int subIndex = 0)
         {
-            key.SetKeyCode(keyCode);
+            key.SetKeyCode(keyCode, subIndex);
         }
 
-        public override KeyCode GetKeyCode(int index = 0)
+        public override KeyCode GetKeyCode(int index = 0, int subIndex = 0)
         {
-            return key.GetKeyCode();
+            return key.GetKeyCode(subIndex);
         }
 
         public override void AddKey(IKey key, int index = 0)
@@ -73,8 +72,8 @@ namespace IrisFenrir.InputSystem
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["name"] = name;
-            json["enable"] = enable;
+            json["name"] = Name;
+            json["enable"] = Enable;
             json["range.x"] = range.x;
             json["range.y"] = range.y;
             json["start"] = start;
@@ -88,7 +87,7 @@ namespace IrisFenrir.InputSystem
         {
             try
             {
-                name = json["name"];
+                Name = json["name"];
                 SetEnable(json["enable"], false);
                 range.x = json["range.x"];
                 range.y = json["range.y"];

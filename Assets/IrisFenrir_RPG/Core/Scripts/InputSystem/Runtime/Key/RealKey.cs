@@ -9,26 +9,26 @@ namespace IrisFenrir.InputSystem
 
         public override bool GetKeyPressing()
         {
-            if (!enable) return false;
+            if (!Enable) return false;
             return Input.GetKey(keyCode);
         }
 
         public override bool GetKeyDown()
         {
-            if (!enable) return false;
+            if (!Enable) return false;
             return Input.GetKeyDown(keyCode);
         }
 
         public override bool GetKeyUp()
         {
-            if (!enable) return false;
+            if (!Enable) return false;
             return Input.GetKeyUp(keyCode);
         }
 
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["enable"] = enable;
+            json["enable"] = Enable;
             json["keyCode"] = keyCode.ToString();
             return json;
         }

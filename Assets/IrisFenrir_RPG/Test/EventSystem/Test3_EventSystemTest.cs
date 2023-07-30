@@ -22,11 +22,11 @@ public class Test3_EventSystemTest : MonoBehaviour
             .Register(() => condition, () => (parameter1, parameter2))
             .Subscribe(p => Debug.Log($"D: {p.Item1} {p.Item2}"));
 
-        EventSystem.instance.SetEnable(true);
+        EventSystem.Instance.SetEnable(true);
     }
 
     private void Update()
     {
-        EventSystem.instance.Update(Time.deltaTime);
+        EventSystem.Instance.Update(Time.deltaTime);
     }
 }

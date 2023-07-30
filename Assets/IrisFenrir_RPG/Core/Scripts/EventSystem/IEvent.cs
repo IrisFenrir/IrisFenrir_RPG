@@ -2,22 +2,22 @@
 {
     public abstract class IEvent : IUpdater, IEnable
     {
-        public string name { get; private set; }
-        public bool enable { get; private set; }
+        public string Name { get; private set; }
+        public bool Enable { get; private set; }
 
         public IEvent(string name)
         {
-            this.name = name;
+            Name = name;
         }
 
         public bool GetEnable()
         {
-            return enable;
+            return Enable;
         }
 
         public virtual void SetEnable(bool enable, bool includeChildren = true)
         {
-            this.enable = enable;
+            Enable = enable;
         }
 
         public virtual void Init() { }
@@ -28,7 +28,7 @@
 
         public override string ToString()
         {
-            return GetType().Name + ": " + name;
+            return GetType().Name + ": " + Name;
         }
     }
 }

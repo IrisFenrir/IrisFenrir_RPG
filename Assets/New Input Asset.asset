@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9520b14d71fe6e849af5fac710fb22ca, type: 3}
+  m_Name: New Input Asset
+  m_EditorClassIdentifier: 
+  keys:
+  - propertyNames:
+    - canDraw
+    - name
+    - type
+    - isFoldout
+    - clickCount
+    - clickInterval
+    - keyCount
+    - key0
+    - key1
+    properties:
+    - content: True
+    - content: TapTest
+    - content: TapKey
+    - content: True
+    - content: 1
+    - content: 0.5
+    - content: 2
+    - content: Z
+    - content: Q
+  - propertyNames:
+    - canDraw
+    - name
+    - type
+    - isFoldout
+    - range
+    - start
+    - speed
+    - keyCount
+    - key0
+    properties:
+    - content: True
+    - content: ValueTest
+    - content: ValueKey
+    - content: False
+    - content: (0.00, 1.00)
+    - content: 0
+    - content: (5.00, 5.00)
+    - content: 1
+    - content: X
+  - propertyNames:
+    - canDraw
+    - name
+    - type
+    - isFoldout
+    - keyCount
+    - key0
+    properties:
+    - content: True
+    - content: PressTest
+    - content: PressKey
+    - content: False
+    - content: 1
+    - content: C
+  - propertyNames:
+    - canDraw
+    - name
+    - type
+    - isFoldout
+    - axesCount
+    properties:
+    - content: True
+    - content: AxisTest
+    - content: AxisKey
+    - content: False
+    - content: 2
+  - propertyNames:
+    - canDraw
+    - name
+    - type
+    - isFoldout
+    - interval
+    - keyCount
+    - key0_0
+    - key1_0
+    - key0Count
+    - key1Count
+    properties:
+    - content: True
+    - content: MultiTest
+    - content: MultiKey
+    - content: False
+    - content: 0.5
+    - content: 2
+    - content: V
+    - content: B
+    - content: 1
+    - content: 1
+  - propertyNames:
+    - canDraw
+    - name
+    - type
+    - isFoldout
+    - interval
+    - keyCount
+    - key0_0
+    - key1_0
+    - key0Count
+    - key1Count
+    properties:
+    - content: True
+    - content: ComboTest
+    - content: ComboKey
+    - content: False
+    - content: 0.5
+    - content: 2
+    - content: N
+    - content: M
+    - content: 1
+    - content: 1
+  - propertyNames:
+    - canDraw
+    - name
+    - range
+    - start
+    - posSpeed
+    - negSpeed
+    - posKey0
+    - negKey0
+    - posKeyCount
+    - negKeyCount
+    - isFoldout
+    properties:
+    - content: False
+    - content: AxisTest0
+    - content: (-1.00, 1.00)
+    - content: 0
+    - content: (5.00, 5.00)
+    - content: (5.00, 5.00)
+    - content: W
+    - content: S
+    - content: 1
+    - content: 1
+    - content: False
+  - propertyNames:
+    - canDraw
+    - name
+    - range
+    - start
+    - posSpeed
+    - negSpeed
+    - posKey0
+    - negKey0
+    - posKeyCount
+    - negKeyCount
+    - isFoldout
+    properties:
+    - content: False
+    - content: AxisTest1
+    - content: (-1.00, 1.00)
+    - content: 0
+    - content: (5.00, 5.00)
+    - content: (5.00, 5.00)
+    - content: D
+    - content: A
+    - content: 1
+    - content: 1
+    - content: False

@@ -5,19 +5,28 @@ namespace IrisFenrir.InputSystem
 {
     public class SimpleKey : IKey
     {
-        private RealKey m_realKey;
-
         private List<IKey> m_keys;
 
         public SimpleKey()
         {
-            m_realKey = new RealKey();
-            m_realKey.keyCode = KeyCode.None;
+            m_keys = new List<IKey> { new RealKey() };
+        }
 
-            m_keys = new List<IKey>
-            {
-                m_realKey
-            };
+        public void AddKey(IKey key)
+        {
+            if (key == null) return;
+            m_keys.Add(key);
+        }
+
+        public bool RemoveKey(IKey key)
+        {
+            return m_keys.Remove(key);
+        }
+
+        public T GetKey<T>(int index) where T : IKey
+        {
+            if (index < 0 || index >= m_keys.Count) return null;
+            return m_keys[index] as T;
         }
 
         public override void SetEnable(bool enable, bool includeChildren = true)
@@ -36,69 +45,59 @@ namespace IrisFenrir.InputSystem
         }
 
 
-        public void SetKeyCode(KeyCode keyCode)
+        public void SetKeyCode(KeyCode keyCode, int index = 0)
         {
-            m_realKey.keyCode = keyCode;
-        }
-        public KeyCode GetKeyCode()
-        {
-            return m_realKey.keyCode;
-        }
-
-        public void AddKey(IKey key)
-        {
+            RealKey key = GetKey<RealKey>(index);
             if (key == null) return;
-            m_keys.Add(key);
+            key.keyCode = keyCode;
         }
 
-        public bool RemoveKey(IKey key)
+        public KeyCode GetKeyCode(int index = 0)
         {
-            return m_keys.Remove(key);
+            RealKey key = GetKey<RealKey>(index);
+            if (key == null) return KeyCode.None;
+            return key.keyCode;
         }
 
-        public T GetKey<T>(int index) where T:IKey
-        {
-            if (index < 0 || index >= m_keys.Count) return null;
-            return m_keys[index] as T;
-        }
+
 
         public override bool GetKeyPressing()
         {
-            if (!enable) return false;
-            bool result = false;
+            if (!Enable) return false;
             foreach (IKey key in m_keys)
             {
-                result = result || key.GetKeyPressing();
+                if (key.GetKeyPressing())
+                    return true;
             }
-            return result;
+            return false;
         }
 
         public override bool GetKeyDown()
         {
-            if (!enable) return false;
-            bool result = false;
+            if (!Enable) return false;
             foreach (IKey key in m_keys)
             {
-                result = result || key.GetKeyDown();
+                if (key.GetKeyDown())
+                    return true;
             }
-            return result;
+            return false;
         }
 
         public override bool GetKeyUp()
         {
-            if (!enable) return false;
-            bool result = false;
+            if (!Enable) return false;
             foreach (IKey key in m_keys)
             {
-                result = result || key.GetKeyUp();
+                if (key.GetKeyUp())
+                    return true;
             }
-            return result;
+            return false;
         }
 
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["enable"] = enable;
+            json["enable"] = Enable;
             Json arr = new Json(Json.Type.Array);
             m_keys.ForEach(k => arr.Add(k.Save()));
             json["keys"] = arr;

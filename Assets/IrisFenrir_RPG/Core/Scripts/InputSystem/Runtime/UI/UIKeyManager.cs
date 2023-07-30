@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,54 +9,66 @@ namespace IrisFenrir.InputSystem
 {
     public class UIKeyManager : IUpdater, IEnable
     {
-        public bool enable { get; private set; }
+        public bool Enable { get; private set; }
 
         private List<UIKey> m_uiKeys;
         private GraphicRaycaster m_raycaster;
         private Dictionary<GameObject, UIKey> m_map;
         private UIKey m_activeKey;
 
-        public UIKeyManager(GraphicRaycaster raycaster)
+        public UIKeyManager(GraphicRaycaster raycaster, string inputWindowName)
         {
             m_uiKeys = new List<UIKey>();
             m_map = new Dictionary<GameObject, UIKey>();
-            InputSystem.instance.keys.ForEach(key => CreateUIKey(key));
 
             m_raycaster = raycaster;
-            
+            CreateUIKeys(inputWindowName);
         }
 
-        private void CreateUIKey(IVirutalKey key)
+        private void CreateUIKeys(string windowName)
         {
-            for (int i = 0; i < key.keyCount; i++)
+            GameObject windowGO = GameObject.Find(windowName);
+            if (windowGO == null) return;
+            for (int i = 0; i < windowGO.transform.childCount; i++)
             {
-                string uiName = key.name + (i == 0 ? string.Empty : i.ToString());
-                GameObject go = GameObject.Find($"UI/InputWindow/{uiName}/KeyCode");
-                if (go == null) return;
-                ITextAdapter text = new UITextMeshPro(go.GetComponent<TextMeshProUGUI>());
-                UIKey uiKey = new UIKey(key, i, text);
-                uiKey.LoadKey();
-                m_uiKeys.Add(uiKey);
-                m_map.Add(go, uiKey);
+                string uiName = windowGO.transform.GetChild(i).name;
+                Match match = Regex.Match(uiName, @"^([A-Za-z]+)(\d+)?(?:_(\d+))?$");
+                if (match.Success)
+                {
+                    string keyName = match.Groups[1].Value;
+                    int keyIndex = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;
+                    int subKeyIndex = match.Groups[3].Success ? int.Parse(match.Groups[3].Value) : 0;
+                    IVirutalKey key = InputSystem.FindKey(keyName);
+                    if (key == null) continue;
+
+                    GameObject uiText = GameObject.Find($"{windowName}/{uiName}/KeyCode");
+                    if (uiText == null) continue;
+                    UIKey uiKey = new UIKey(key, keyIndex, subKeyIndex, new UITextMeshPro(uiText.GetComponent<TextMeshProUGUI>()));
+                    m_map.Add(uiText, uiKey);
+                    m_uiKeys.Add(uiKey);
+
+                    uiKey.LoadKey();
+                }
             }
         }
 
+
         public void SetEnable(bool enable, bool includeChildren = true)
         {
-            this.enable = enable;
+            Enable = enable;
             m_activeKey = null;
         }
 
         public bool GetEnable()
         {
-            return enable;
+            return Enable;
         }
 
         public void Init() { }
 
         public void Update(float deltaTime)
         {
-            if (!enable) return;
+            if (!Enable) return;
 
             if(m_activeKey == null)
             {

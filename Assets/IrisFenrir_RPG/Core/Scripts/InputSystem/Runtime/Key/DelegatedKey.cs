@@ -10,19 +10,19 @@ namespace IrisFenrir.InputSystem
 
         public override bool GetKeyPressing()
         {
-            if (!enable) return false;
+            if (!Enable) return false;
             return getKeyPressing != null && getKeyPressing();
         }
 
         public override bool GetKeyDown()
         {
-            if (!enable) return false;
+            if (!Enable) return false;
             return getKeyDown != null && getKeyDown();
         }
 
         public override bool GetKeyUp()
         {
-            if (!enable) return false;
+            if (!Enable) return false;
             return getKeyUp != null && getKeyUp();
         }
     }

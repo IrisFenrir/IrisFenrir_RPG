@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace IrisFenrir.InputSystem
 {
@@ -32,7 +31,7 @@ namespace IrisFenrir.InputSystem
 
         public override void Update(float deltaTime)
         {
-            if (!enable) return;
+            if (!Enable) return;
 
             pressTime = isPressing ? pressTime + deltaTime : 0f;
             isUp = key.GetKeyUp();
@@ -40,14 +39,14 @@ namespace IrisFenrir.InputSystem
             isDown = key.GetKeyDown();
         }
 
-        public override void SetKeyCode(KeyCode keyCode, int index = 0)
+        public override void SetKeyCode(KeyCode keyCode, int index = 0, int subIndex = 0)
         {
-            key.SetKeyCode(keyCode);
+            key.SetKeyCode(keyCode, subIndex);
         }
 
-        public override KeyCode GetKeyCode(int index = 0)
+        public override KeyCode GetKeyCode(int index = 0, int subIndex = 0)
         {
-            return key.GetKeyCode();
+            return key.GetKeyCode(subIndex);
         }
 
         public override void AddKey(IKey key, int index = 0)
@@ -63,8 +62,8 @@ namespace IrisFenrir.InputSystem
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["name"] = name;
-            json["enable"] = enable;
+            json["name"] = Name;
+            json["enable"] = Enable;
             json["key"] = key.Save();
             return json;
         }
@@ -73,7 +72,7 @@ namespace IrisFenrir.InputSystem
         {
             try
             {
-                name = json["name"];
+                Name = json["name"];
                 SetEnable(json["enable"], false);
                 key.Load(json["key"]);
             }

@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace IrisFenrir
+﻿namespace IrisFenrir
 {
     public abstract class ITextAdapter
     {

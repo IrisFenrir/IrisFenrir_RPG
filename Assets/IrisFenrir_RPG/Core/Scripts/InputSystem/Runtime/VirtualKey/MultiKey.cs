@@ -11,7 +11,7 @@ namespace IrisFenrir.InputSystem
 
         public bool isTriggered;
 
-        public override int keyCount => keys.Length;
+        public override int KeyCount => keys.Length;
 
         private float m_currentInterval;
         private bool[] m_keyState;
@@ -44,7 +44,7 @@ namespace IrisFenrir.InputSystem
 
         public override void Update(float deltaTime)
         {
-            if (!enable || keys.Length == 0 || interval <= 0f) return;
+            if (!Enable || keys.Length == 0 || interval <= 0f) return;
 
             isTriggered = false;
             m_currentInterval += deltaTime;
@@ -71,17 +71,17 @@ namespace IrisFenrir.InputSystem
             }
         }
 
-        public override void SetKeyCode(KeyCode keyCode, int index = 0)
+        public override void SetKeyCode(KeyCode keyCode, int index = 0, int subIndex = 0)
         {
             if (index < 0 || index >= keys.Length) return;
-            keys[index].SetKeyCode(keyCode);
+            keys[index].SetKeyCode(keyCode, subIndex);
         }
 
-        public override KeyCode GetKeyCode(int index = 0)
+        public override KeyCode GetKeyCode(int index = 0, int subIndex = 0)
         {
             if (index < 0 || index >= keys.Length)
                 return KeyCode.None;
-            return keys[index].GetKeyCode();
+            return keys[index].GetKeyCode(subIndex);
         }
 
         public override void AddKey(IKey key, int index = 0)
@@ -99,8 +99,8 @@ namespace IrisFenrir.InputSystem
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["name"] = name;
-            json["enable"] = enable;
+            json["name"] = Name;
+            json["enable"] = Enable;
             json["interval"] = interval;
             Json arr = new Json(Json.Type.Array);
             Array.ForEach(keys, key => arr.Add(key.Save()));
@@ -112,7 +112,7 @@ namespace IrisFenrir.InputSystem
         {
             try
             {
-                name = json["name"];
+                Name = json["name"];
                 SetEnable(json["enable"], false);
                 interval = json["interval"];
                 List<Json> arr = json["keys"].array;

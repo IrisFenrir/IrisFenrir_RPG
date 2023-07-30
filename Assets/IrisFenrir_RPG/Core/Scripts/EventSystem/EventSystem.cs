@@ -5,18 +5,18 @@ namespace IrisFenrir.EventSystem
 {
     public class EventSystem : Singleton<EventSystem>, IUpdater, IEnable
     {
-        public bool enable { get; private set; }
+        public bool Enable { get; private set; }
 
         private EventGroup m_root = new EventGroup("Root");
 
         public bool GetEnable()
         {
-            return enable;
+            return Enable;
         }
 
         public void SetEnable(bool enable, bool includeChildren = true)
         {
-            this.enable = enable;
+            this.Enable = enable;
             if (includeChildren)
                 m_root.SetEnable(enable, includeChildren);
         }
@@ -28,7 +28,7 @@ namespace IrisFenrir.EventSystem
 
         public void Update(float deltaTime)
         {
-            if (!enable) return;
+            if (!Enable) return;
 
             m_root.Update(deltaTime);
         }
@@ -36,35 +36,35 @@ namespace IrisFenrir.EventSystem
         public static T FindWithName<T>(string name, string root = "Root") where T: IEvent
         {
             if (root == "Root")
-                return Find<T>(e => e.name == name);
-            var rootEvent = Find<IEvent>(e => e.name == root);
+                return Find<T>(e => e.Name == name);
+            var rootEvent = Find<IEvent>(e => e.Name == root);
             if (rootEvent == null) return null;
-            return EventFilter<T>(rootEvent, e => e.name == root);
+            return EventFilter<T>(rootEvent, e => e.Name == root);
         }
 
         public static T FindWithPath<T>(string path) where T: IEvent
         {
             string[] eventNames = path.Split('/');
-            EventGroup group = instance.m_root;
+            EventGroup group = Instance.m_root;
             int i;
             for (i = 0; i < eventNames.Length - 1; i++)
             {
-                group = group.events.Find(e => e.name == eventNames[i]) as EventGroup;
+                group = group.Events.Find(e => e.Name == eventNames[i]) as EventGroup;
                 if (group == null) return null;
             }
-            return group.events.Find(e => e.name == eventNames[i]) as T;
+            return group.Events.Find(e => e.Name == eventNames[i]) as T;
         }
 
         public static T Find<T>(Predicate<T> condition) where T : IEvent
         {
-            return EventFilter(instance.m_root, condition);
+            return EventFilter(Instance.m_root, condition);
         }
 
         public static SingleEvent CreateEvent(string parent, string name)
         {
             EventGroup group = FindWithName<EventGroup>(parent);
             if (group == null) return null;
-            SingleEvent e = group.events.Find(e => e.name == name) as SingleEvent;
+            SingleEvent e = group.Events.Find(e => e.Name == name) as SingleEvent;
             if (e != null) return e;
             e = new SingleEvent(name);
             group.AddEvent(e);
@@ -75,7 +75,7 @@ namespace IrisFenrir.EventSystem
         {
             EventGroup group = FindWithName<EventGroup>(parent);
             if (group == null) return null;
-            SingleEvent<T> e = group.events.Find(e => e.name == name) as SingleEvent<T>;
+            SingleEvent<T> e = group.Events.Find(e => e.Name == name) as SingleEvent<T>;
             if (e != null) return e;
             e = new SingleEvent<T>(name);
             group.AddEvent(e);
@@ -86,7 +86,7 @@ namespace IrisFenrir.EventSystem
         {
             EventGroup group = FindWithName<EventGroup>(parent);
             if (group == null) return null;
-            EventGroup e = group.events.Find(e => e.name == name) as EventGroup;
+            EventGroup e = group.Events.Find(e => e.Name == name) as EventGroup;
             if (e != null) return e;
             e = new EventGroup(name);
             group.AddEvent(e);
@@ -154,7 +154,7 @@ namespace IrisFenrir.EventSystem
         {
             EventGroup group = FindWithName<EventGroup>(parent);
             if (group == null) return;
-            IEvent target = group.events.Find(e => e.name == name);
+            IEvent target = group.Events.Find(e => e.Name == name);
             if (target == null) return;
             group.RemoveEvent(target);
         }
@@ -173,7 +173,7 @@ namespace IrisFenrir.EventSystem
             if (e is T t && condition(t)) return t;
             if(e is EventGroup group)
             {
-                foreach (var item in group.events)
+                foreach (var item in group.Events)
                 {
                     var target = EventFilter(item, condition);
                     if (target != null) return target;
@@ -194,7 +194,7 @@ namespace IrisFenrir.EventSystem
             }
             if(e is EventGroup group)
             {
-                foreach (var item in group.events)
+                foreach (var item in group.Events)
                 {
                     EventFilterAll(item, condition, container);
                 }

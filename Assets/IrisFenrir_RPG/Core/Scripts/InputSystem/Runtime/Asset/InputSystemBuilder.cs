@@ -1,69 +1,98 @@
-﻿namespace IrisFenrir.InputSystem
+﻿using UnityEngine;
+
+namespace IrisFenrir.InputSystem
 {
-    public class InputSystemBuilder
+    public static class InputSystemBuilder
     {
-        public static void Build(InputSystemAsset asset)
+        public static void Build(InputAsset asset)
         {
-            foreach (var data in asset.keys)
+            foreach (ObjectHandle key in asset.keys)
             {
-                switch(data.type)
+                string type = key.GetProperty<string>("type");
+                switch(type)
                 {
-                    case KeyDataUnit.KeyType.TapKey:
+                    case "TapKey":
                         TapKey tapKey = new TapKey();
-                        tapKey.name = data.GetStringProperty("name");
-                        tapKey.clickCount = data.GetIntProperty("clickCount");
-                        tapKey.clickInterval = data.GetFloatProperty("clickInterval");
-                        tapKey.SetKeyCode(data.GetKeyCodeProperty("keyCode"));
+                        tapKey.Name = key.GetProperty<string>("name");
+                        tapKey.clickCount = key.GetProperty<int>("clickCount");
+                        tapKey.clickInterval = key.GetProperty<float>("clickInterval");
+                        ReadKeyCode(tapKey, 0, key, "key");
                         InputSystem.AddKey(tapKey);
                         break;
-                    case KeyDataUnit.KeyType.ValueKey:
+                    case "ValueKey":
                         ValueKey valueKey = new ValueKey();
-                        valueKey.name = data.GetStringProperty("name");
-                        valueKey.range = data.GetVector2Property("range");
-                        valueKey.start = data.GetFloatProperty("start");
-                        valueKey.speed = data.GetVector2Property("speed");
-                        valueKey.SetKeyCode(data.GetKeyCodeProperty("keyCode"));
+                        valueKey.Name = key.GetProperty<string>("name");
+                        valueKey.range = key.GetProperty<Vector2>("range");
+                        valueKey.start = key.GetProperty<float>("start");
+                        valueKey.speed = key.GetProperty<Vector2>("speed");
+                        ReadKeyCode(valueKey, 0, key, "key");
                         InputSystem.AddKey(valueKey);
                         break;
-                    case KeyDataUnit.KeyType.PressKey:
+                    case "PressKey":
                         PressKey pressKey = new PressKey();
-                        pressKey.name = data.GetStringProperty("name");
-                        pressKey.SetKeyCode(data.GetKeyCodeProperty("keyCode"));
+                        pressKey.Name = key.GetProperty<string>("name");
+                        ReadKeyCode(pressKey, 0, key, "key");
                         InputSystem.AddKey(pressKey);
                         break;
-                    case KeyDataUnit.KeyType.AxisKey:
-                        int axisCount = data.GetIntProperty("axisCount");
-                        AxisKey axisKey = new AxisKey(axisCount);
-                        axisKey.name = data.GetStringProperty("name");
-                        for (int i = 0; i < axisCount; i++)
+                    case "AxisKey":
+                        AxisKey axisKey = new AxisKey();
+                        axisKey.Name = key.GetProperty<string>("name");
+                        int axesCount = key.GetProperty<int>("axesCount");
+                        for (int i = 0; i < axesCount; i++)
                         {
-                            axisKey.AddAxis(i, data.GetKeyCodeProperty($"posKey{i}"), data.GetKeyCodeProperty($"negKey{i}"), data.GetVector2Property($"range{i}"), data.GetFloatProperty($"start{i}"), data.GetVector2Property($"posSpeed{i}"), data.GetVector2Property($"negSpeed{i}"));
+                            ObjectHandle axis = asset.keys.Find(k => k.GetProperty<string>("name") == axisKey.Name + i.ToString());
+                            if (axis == null) continue;
+                            axisKey.AddAxis(axis.GetProperty<KeyCode>("posKey0"), axis.GetProperty<KeyCode>("negKey0"),
+                                            axis.GetProperty<Vector2>("range"), axis.GetProperty<float>("start"),
+                                            axis.GetProperty<Vector2>("posSpeed"), axis.GetProperty<Vector2>("negSpeed"));
+                            ReadKeyCode(axisKey.axes[i], 0, axis, "posKey");
+                            ReadKeyCode(axisKey.axes[i], 1, axis, "negKey");
                         }
                         InputSystem.AddKey(axisKey);
                         break;
-                    case KeyDataUnit.KeyType.MultiKey:
-                        int keyCount = data.GetIntProperty("keyCount");
+                    case "MultiKey":
+                        int keyCount = key.GetProperty<int>("keyCount");
                         MultiKey multiKey = new MultiKey(keyCount);
-                        multiKey.name = data.GetStringProperty("name");
-                        multiKey.interval = data.GetFloatProperty("interval");
-                        for (int i = 0; i < keyCount; i++)
+                        multiKey.Name = key.GetProperty<string>("name");
+                        int count = key.GetProperty<int>("keyCount");
+                        for (int i = 0; i < count; i++)
                         {
-                            multiKey.SetKeyCode(data.GetKeyCodeProperty($"key{i}"), i);
+                            int keyCodeCount = key.GetProperty<int>("key" + i.ToString() + "Count");
+                            multiKey.SetKeyCode(key.GetProperty<KeyCode>("key" + i.ToString() + "_0"), i, 0);
+                            for (int j = 1; j < keyCodeCount; j++)
+                            {
+                                multiKey.keys[i].AddKey(new RealKey() { keyCode = key.GetProperty<KeyCode>("key" + i.ToString() + "_" + j.ToString()) });
+                            }
                         }
                         InputSystem.AddKey(multiKey);
                         break;
-                    case KeyDataUnit.KeyType.ComboKey:
-                        keyCount = data.GetIntProperty("keyCount");
+                    case "ComboKey":
+                        keyCount = key.GetProperty<int>("keyCount");
                         ComboKey comboKey = new ComboKey(keyCount);
-                        comboKey.name = data.GetStringProperty("name");
-                        comboKey.interval = data.GetFloatProperty("interval");
-                        for (int i = 0; i < keyCount; i++)
+                        comboKey.Name = key.GetProperty<string>("name");
+                        count = key.GetProperty<int>("keyCount");
+                        for (int i = 0; i < count; i++)
                         {
-                            comboKey.SetKeyCode(data.GetKeyCodeProperty($"key{i}"), i);
+                            int keyCodeCount = key.GetProperty<int>("key" + i.ToString() + "Count");
+                            comboKey.SetKeyCode(key.GetProperty<KeyCode>("key" + i.ToString() + "_0"), i, 0);
+                            for (int j = 1; j < keyCodeCount; j++)
+                            {
+                                comboKey.keys[i].AddKey(new RealKey() { keyCode = key.GetProperty<KeyCode>("key" + i.ToString() + "_" + j.ToString()) });
+                            }
                         }
                         InputSystem.AddKey(comboKey);
                         break;
                 }
+            }
+        }
+
+        private static void ReadKeyCode(IVirutalKey key, int index, ObjectHandle handle, string propertyName)
+        {
+            int keyCodeCount = handle.GetProperty<int>(propertyName + "Count");
+            key.SetKeyCode(handle.GetProperty<KeyCode>(propertyName + "0"), index);
+            for (int i = 1; i < keyCodeCount; i++)
+            {
+                key.AddKey(new RealKey() { keyCode = handle.GetProperty<KeyCode>(propertyName + i.ToString()) }, index);
             }
         }
     }

@@ -114,7 +114,7 @@ MonoBehaviour:
       - AxisTest
     m_intProperties:
       type: 2
-      m_propertyValues: 020000000100000001000000
+      m_propertyValues: 020000000000000000000000
     m_floatProperties:
       type: 3
       m_propertyValues:

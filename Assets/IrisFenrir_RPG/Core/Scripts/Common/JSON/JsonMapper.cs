@@ -9,7 +9,9 @@ namespace IrisFenrir
         public static Json ToJsonObject(string jsonText)
         {
             int index = 0;
-            return ProcessJsonString(jsonText, ref index);
+            Json json = ProcessJsonString(jsonText, ref index);
+            if (index == jsonText.Length) return json;
+            return null;
         }
 
         public static string ToJsonString(Json json)
@@ -114,8 +116,14 @@ namespace IrisFenrir
             if (json[index] == '-')
                 index++;
 
+            bool hasNum = false;
             while (index < json.Length && char.IsNumber(json[index]))
+            {
                 index++;
+                hasNum = true;
+            }
+            if (!hasNum) return null;
+                
             if (index >= json.Length || (json[index] != '.' && json[index] != 'e' && json[index] != 'E'))
                 return new Json(Json.Type.Number) { json = json[start..index] };
 
@@ -123,6 +131,7 @@ namespace IrisFenrir
             {
                 int pointIndex = index++;
                 while (index < json.Length && char.IsDigit(json[index])) index++;
+
                 if (index == pointIndex + 1)
                 {
                     return null;
@@ -169,8 +178,8 @@ namespace IrisFenrir
                 {
                     return null;
                 }
-                index++;
-                string key = json[(keyStart + 1)..(index - 1)];
+                //index++;
+                string key = json[(keyStart + 1)..(index++)];
                 if (obj.HasKey(key))
                 {
                     return null;

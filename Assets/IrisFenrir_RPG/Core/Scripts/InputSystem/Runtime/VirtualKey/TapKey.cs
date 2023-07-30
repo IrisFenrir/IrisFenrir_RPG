@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace IrisFenrir.InputSystem
 {
@@ -33,12 +32,13 @@ namespace IrisFenrir.InputSystem
 
         public override void Update(float deltaTime)
         {
-            if (!enable || clickCount < 1) return;
+            if (!Enable || clickCount < 1) return;
 
             isTriggered = false;
             if (clickCount == 1)
             {
                 isTriggered = key.GetKeyDown();
+                return;
             }
             if (clickInterval <= 0f) return;
             m_currentClickInterval += deltaTime;
@@ -62,14 +62,14 @@ namespace IrisFenrir.InputSystem
             }
         }
 
-        public override void SetKeyCode(KeyCode keyCode, int index = 0)
+        public override void SetKeyCode(KeyCode keyCode, int index = 0, int subIndex = 0)
         {
-            key.SetKeyCode(keyCode);
+            key.SetKeyCode(keyCode, subIndex);
         }
 
-        public override KeyCode GetKeyCode(int index = 0)
+        public override KeyCode GetKeyCode(int index = 0, int subIndex = 0)
         {
-            return key.GetKeyCode();
+            return key.GetKeyCode(subIndex);
         }
 
         public override void AddKey(IKey key, int index = 0)
@@ -85,8 +85,8 @@ namespace IrisFenrir.InputSystem
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["name"] = name;
-            json["enable"] = enable;
+            json["name"] = Name;
+            json["enable"] = Enable;
             json["clickCount"] = clickCount;
             json["clickInterval"] = clickInterval;
             json["key"] = key.Save();
@@ -97,7 +97,7 @@ namespace IrisFenrir.InputSystem
         {
             try
             {
-                name = json["name"];
+                Name = json["name"];
                 SetEnable(json["enable"], false);
                 clickCount = json["clickCount"];
                 clickInterval = json["clickInterval"];

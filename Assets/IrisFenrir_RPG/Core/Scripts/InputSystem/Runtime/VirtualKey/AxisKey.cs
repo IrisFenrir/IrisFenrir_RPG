@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace IrisFenrir.InputSystem
@@ -38,11 +37,11 @@ namespace IrisFenrir.InputSystem
                 start < range.x || start >= range.y)
                 return;
 
-            if(enable && posKey.GetKeyPressing())
+            if(Enable && posKey.GetKeyPressing())
             {
                 value = Mathf.Min(value + (value >= start ? posSpeed.x : negSpeed.y) * deltaTime, range.y);
             }
-            else if(enable && negKey.GetKeyPressing())
+            else if(Enable && negKey.GetKeyPressing())
             {
                 value = Mathf.Max(value - (value >= start ? posSpeed.y : negSpeed.x) * deltaTime, range.x);
             }
@@ -59,20 +58,20 @@ namespace IrisFenrir.InputSystem
             }
         }
 
-        public override void SetKeyCode(KeyCode keyCode, int index = 0)
+        public override void SetKeyCode(KeyCode keyCode, int index = 0, int subIndex = 0)
         {
             if (index == 0)
-                posKey.SetKeyCode(keyCode);
+                posKey.SetKeyCode(keyCode, subIndex);
             else if (index == 1)
-                negKey.SetKeyCode(keyCode);
+                negKey.SetKeyCode(keyCode, subIndex);
         }
 
-        public override KeyCode GetKeyCode(int index = 0)
+        public override KeyCode GetKeyCode(int index = 0, int subIndex = 0)
         {
             if (index == 0)
-                return posKey.GetKeyCode();
+                return posKey.GetKeyCode(subIndex);
             else if (index == 1)
-                return negKey.GetKeyCode();
+                return negKey.GetKeyCode(subIndex);
             return KeyCode.None;
         }
 
@@ -94,8 +93,8 @@ namespace IrisFenrir.InputSystem
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["name"] = name;
-            json["enable"] = enable;
+            json["name"] = Name;
+            json["enable"] = Enable;
             json["range.x"] = range.x;
             json["range.y"] = range.y;
             json["posSpeed.x"] = posSpeed.x;
@@ -112,7 +111,7 @@ namespace IrisFenrir.InputSystem
         {
             try
             {
-                name = json["name"];
+                Name = json["name"];
                 SetEnable(json["enable"], false);
                 range.x = json["range.x"];
                 range.y = json["range.y"];
@@ -134,25 +133,21 @@ namespace IrisFenrir.InputSystem
 
     public class AxisKey : IVirutalKey
     {
-        public Axis[] axes { get; private set; }
+        public List<Axis> axes { get; private set; }
 
-        public override int keyCount => axes.Length * 2;
+        public override int KeyCount => axes.Count * 2;
 
         private Vector2 m_output2d;
         private Vector3 m_output3d;
 
-        public AxisKey(int count)
+        public AxisKey()
         {
-            axes = new Axis[count];
-            for (int i = 0; i < count; i++)
-            {
-                axes[i] = new Axis();
-            }
+            axes = new List<Axis>();
         }
 
-        public void AddAxis(int index, KeyCode posKey, KeyCode negKey, Vector2? range = null, float start = 0, Vector2? posSpeed = null, Vector2? negSpeed = null)
+        public void AddAxis(KeyCode posKey, KeyCode negKey, Vector2? range = null, float start = 0, Vector2? posSpeed = null, Vector2? negSpeed = null)
         {
-            Axis axis = axes[index];
+            Axis axis = new Axis();
             axis.posKey.SetKeyCode(posKey);
             axis.negKey.SetKeyCode(negKey);
             if (range != null)
@@ -162,24 +157,25 @@ namespace IrisFenrir.InputSystem
             if (negSpeed != null)
                 axis.negSpeed = negSpeed.Value;
             axis.start = start;
+            axes.Add(axis);
         }
 
-        public float GetValue(int index)
+        public float GetValue(int axisIndex)
         {
-            if (index < 0 || index >= axes.Length) return 0f;
-            return axes[index].value;
+            if (axisIndex < 0 || axisIndex >= axes.Count) return 0f;
+            return axes[axisIndex].value;
         }
 
         public Vector2 GetVector2()
         {
-            if (axes.Length < 2) return Vector2.zero;
+            if (axes.Count < 2) return Vector2.zero;
             m_output2d.Set(axes[0].value, axes[1].value);
             return m_output2d;
         }
 
         public Vector3 GetVector3()
         {
-            if (axes.Length < 3) return Vector3.zero;
+            if (axes.Count < 3) return Vector3.zero;
             m_output3d.Set(axes[0].value, axes[1].value, axes[2].value);
             return m_output3d;
         }
@@ -188,52 +184,52 @@ namespace IrisFenrir.InputSystem
         {
             base.SetEnable(enable, includeChildren);
             if(includeChildren)
-                Array.ForEach(axes, axis => axis.SetEnable(enable, includeChildren));
+                axes.ForEach(axis => axis.SetEnable(enable, includeChildren));
         }
 
         public override void Update(float deltaTime)
         {
-            Array.ForEach(axes, axis => axis?.Update(deltaTime));
+            axes.ForEach(axis => axis?.Update(deltaTime));
         }
 
         // index % 2 == 0  ==> posKey
         // index % 2 == 1  ==> negKey 
-        public override void SetKeyCode(KeyCode keyCode, int index = 0)
+        public override void SetKeyCode(KeyCode keyCode, int index = 0, int subIndex = 0)
         {
             int axisIndex = index / 2;
-            if (axisIndex < 0 || axisIndex >= axes.Length) return;
-            axes[axisIndex].SetKeyCode(keyCode, index % 2);
+            if (axisIndex < 0 || axisIndex >= axes.Count) return;
+            axes[axisIndex].SetKeyCode(keyCode, index % 2, subIndex);
         }
 
-        public override KeyCode GetKeyCode(int index = 0)
+        public override KeyCode GetKeyCode(int index = 0, int subIndex = 0)
         {
             int axisIndex = index / 2;
-            if (axisIndex < 0 || axisIndex >= axes.Length)
+            if (axisIndex < 0 || axisIndex >= axes.Count)
                 return KeyCode.None;
-            return axes[axisIndex].GetKeyCode(index % 2);
+            return axes[axisIndex].GetKeyCode(index % 2, subIndex);
         }
 
         public override void AddKey(IKey key, int index = 0)
         {
             int axisIndex = index / 2;
-            if (axisIndex < 0 || axisIndex >= axes.Length) return;
+            if (axisIndex < 0 || axisIndex >= axes.Count) return;
             axes[axisIndex].AddKey(key, index % 2);
         }
 
         public override void RemoveKey(IKey key, int index = 0)
         {
             int axisIndex = index / 2;
-            if (axisIndex < 0 || axisIndex >= axes.Length) return;
+            if (axisIndex < 0 || axisIndex >= axes.Count) return;
             axes[axisIndex].RemoveKey(key, index % 2);
         }
 
         public override Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["name"] = name;
-            json["enable"] = enable;
+            json["name"] = Name;
+            json["enable"] = Enable;
             Json arr = new Json(Json.Type.Array);
-            Array.ForEach(axes, axis => arr.Add(axis.Save()));
+            axes.ForEach(axis => arr.Add(axis.Save()));
             json["axes"] = arr;
             return json;
         }
@@ -242,12 +238,15 @@ namespace IrisFenrir.InputSystem
         {
             try
             {
-                name = json["name"];
+                Name = json["name"];
                 SetEnable(json["enable"], false);
                 List<Json> arr = json["axes"].array;
-                for (int i = 0; i < axes.Length; i++)
+                axes.Clear();
+                for (int i = 0; i < arr.Count; i++)
                 {
-                    axes[i].Load(arr[i]);
+                    Axis axis = new Axis();
+                    axis.Load(arr[i]);
+                    axes.Add(axis);
                 }
             }
             catch

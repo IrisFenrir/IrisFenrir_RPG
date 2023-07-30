@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Test12_UIKeyTest : MonoBehaviour
 {
-    public InputSystemAsset asset;
+    public InputAsset asset;
     public GraphicRaycaster raycaster;
 
     [Header("Output")]
@@ -24,22 +24,23 @@ public class Test12_UIKeyTest : MonoBehaviour
     {
         InputSystemBuilder.Build(asset);
 
-        m_uiKeyManager = new UIKeyManager(raycaster);
-        m_uiKeyManager.SetEnable(true);
-
         m_tapKey = InputSystem.FindKey<TapKey>("TapTest");
+        m_tapKey.AddKey(new RealKey() { keyCode = KeyCode.T });
         m_valueKey = InputSystem.FindKey<ValueKey>("ValueTest");
         m_pressKey = InputSystem.FindKey<PressKey>("PressTest");
         m_axisKey = InputSystem.FindKey<AxisKey>("AxisTest");
         m_multiKey = InputSystem.FindKey<MultiKey>("MultiTest");
         m_comboKey = InputSystem.FindKey<ComboKey>("ComboTest");
 
-        InputSystem.instance.SetEnable(true);
+        m_uiKeyManager = new UIKeyManager(raycaster, "UI/InputWindow");
+        m_uiKeyManager.SetEnable(true);
+
+        InputSystem.Instance.SetEnable(true);
     }
 
     private void Update()
     {
-        InputSystem.instance.Update(Time.deltaTime);
+        InputSystem.Instance.Update(Time.deltaTime);
         m_uiKeyManager.Update(Time.deltaTime);
 
         

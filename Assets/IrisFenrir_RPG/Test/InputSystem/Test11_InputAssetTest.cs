@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Test11_InputAssetTest : MonoBehaviour
 {
-    public InputSystemAsset asset;
+    public InputAsset asset;
 
     [Header("Output")]
     public float value;
@@ -27,12 +27,12 @@ public class Test11_InputAssetTest : MonoBehaviour
         m_multiKey = InputSystem.FindKey<MultiKey>("MultiTest");
         m_comboKey = InputSystem.FindKey<ComboKey>("ComboTest");
 
-        InputSystem.instance.SetEnable(true);
+        InputSystem.Instance.SetEnable(true);
     }
 
     private void Update()
     {
-        InputSystem.instance.Update(Time.deltaTime);
+        InputSystem.Instance.Update(Time.deltaTime);
 
         if (m_tapKey.isTriggered)
             Debug.Log("Tap Key!!!");

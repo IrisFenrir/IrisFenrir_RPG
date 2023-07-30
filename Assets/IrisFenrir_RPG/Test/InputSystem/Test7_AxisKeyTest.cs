@@ -11,13 +11,13 @@ public class Test7_AxisKeyTest : MonoBehaviour
 
     private void Start()
     {
-        m_key = new AxisKey(2);
+        m_key = new AxisKey();
         m_path = Application.dataPath + "/IrisFenrir_RPG/Test/InputSystem/Save/AxisKeyTest.fenrir";
 
         if (!load)
         {
-            m_key.AddAxis(0, KeyCode.W, KeyCode.S);
-            m_key.AddAxis(1, KeyCode.D, KeyCode.A);
+            m_key.AddAxis(KeyCode.D, KeyCode.A);
+            m_key.AddAxis(KeyCode.W, KeyCode.S);
             m_key.SetEnable(true);
         }
         else

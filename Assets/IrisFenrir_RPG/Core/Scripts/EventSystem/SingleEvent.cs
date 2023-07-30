@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IrisFenrir.EventSystem
 {
@@ -42,7 +38,7 @@ namespace IrisFenrir.EventSystem
 
         public override void Update(float deltaTime)
         {
-            if (!enable) return;
+            if (!Enable) return;
             if (m_condition != null && m_condition())
                 m_action?.Invoke();
         }
@@ -86,7 +82,7 @@ namespace IrisFenrir.EventSystem
 
         public override void Update(float deltaTime)
         {
-            if (!enable) return;
+            if (!Enable) return;
             if (m_condition != null && m_condition())
                 m_action?.Invoke(m_parameter());
         }

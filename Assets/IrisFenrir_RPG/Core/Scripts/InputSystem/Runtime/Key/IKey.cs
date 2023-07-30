@@ -2,16 +2,16 @@ namespace IrisFenrir.InputSystem
 {
     public abstract class IKey: IEnable, ISavable
     {
-        public bool enable { get; protected set; }
+        public bool Enable { get; protected set; }
 
         public virtual void SetEnable(bool enable, bool includeChildren = true)
         {
-            this.enable = enable;
+            Enable = enable;
         }
 
         public virtual bool GetEnable()
         {
-            return enable;
+            return Enable;
         }
 
         public abstract bool GetKeyPressing();
@@ -23,7 +23,7 @@ namespace IrisFenrir.InputSystem
         public virtual Json Save()
         {
             Json json = new Json(Json.Type.Object);
-            json["enable"] = enable;
+            json["enable"] = Enable;
             return json;
         }
 

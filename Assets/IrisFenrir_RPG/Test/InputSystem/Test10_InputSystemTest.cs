@@ -20,21 +20,21 @@ public class Test10_InputSystemTest : MonoBehaviour
         TapKey tapKey = new TapKey();
         tapKey.SetKeyCode(KeyCode.Space);
         tapKey.clickCount = 3;
-        tapKey.name = "KeyA";
+        tapKey.Name = "KeyA";
         InputSystem.AddKey(tapKey);
 
         ValueKey valueKey = new ValueKey();
         valueKey.SetKeyCode(KeyCode.Space);
-        valueKey.name = "KeyB";
+        valueKey.Name = "KeyB";
         InputSystem.AddKey(valueKey);
 
-        AxisKey axisKey = new AxisKey(2);
-        axisKey.AddAxis(0, KeyCode.W, KeyCode.S);
-        axisKey.AddAxis(1, KeyCode.D, KeyCode.A);
-        axisKey.name = "KeyC";
+        AxisKey axisKey = new AxisKey();
+        axisKey.AddAxis(KeyCode.W, KeyCode.S);
+        axisKey.AddAxis(KeyCode.D, KeyCode.A);
+        axisKey.Name = "KeyC";
         InputSystem.AddKey(axisKey);
 
-        InputSystem.instance.SetEnable(true);
+        InputSystem.Instance.SetEnable(true);
     }
 
     private void Start()
@@ -43,7 +43,7 @@ public class Test10_InputSystemTest : MonoBehaviour
 
         if (load)
         {
-            SaveHelper.Load(InputSystem.instance, m_path);
+            SaveHelper.Load(InputSystem.Instance, m_path);
             Debug.Log("Load");
         }
 
@@ -54,7 +54,7 @@ public class Test10_InputSystemTest : MonoBehaviour
 
     private void Update()
     {
-        InputSystem.instance.Update(Time.deltaTime);
+        InputSystem.Instance.Update(Time.deltaTime);
 
         if (m_keyA.isTriggered)
             Debug.Log("TapKey");
@@ -71,7 +71,7 @@ public class Test10_InputSystemTest : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.J))
         {
-            SaveHelper.Save(InputSystem.instance, m_path);
+            SaveHelper.Save(InputSystem.Instance, m_path);
             Debug.Log("Save");
         }    
     }
