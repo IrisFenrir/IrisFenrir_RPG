@@ -141,7 +141,7 @@ namespace IrisFenrir
             }
 
             int eIndex = index++;
-            if (json[index] == '+' || json[index] == '-') index++;
+            if (index < json.Length && (json[index] == '+' || json[index] == '-')) index++;
             while (index < json.Length && char.IsDigit(json[index])) index++;
             if (index == eIndex + 1)
             {
